@@ -10,5 +10,6 @@ Note: Solutions to problems are totally accepted! Make a PR!
 
 | Problem Name/Number  | File Name | Author |
 | ------------- | ------------- | ------------- |
-| Abbreviation II  | FindAllAbbreviations.hs  | Leo Rudberg (LOZORD) |
-| Quine Time  | look_and_say.py  | Leo Rudberg (LOZORD) |
+| Abbreviation II  | `FindAllAbbreviations.hs`  | Leo Rudberg (LOZORD) |
+| Quine Time  | `look_and_say.py`  | Leo Rudberg (LOZORD) |
+| Pair-y Time | `pairy-time.py` | Leo Rudberg (LOZORD)
