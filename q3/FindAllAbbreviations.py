@@ -16,5 +16,9 @@ def findAllAbbrev(s):
         rest = findAllAbbrev(s[1:])
         return prefixAll(s[0], rest) + prefixAll(1, rest)
 
-for s in findAllAbbrev(sys.argv[1]):
-    print ''.join([str(i) for i in s])
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print ' '.join(['usage:', sys.argv[0], '<word>'])
+    else:
+        for s in findAllAbbrev(sys.argv[1]):
+            print ''.join([str(i) for i in s])
