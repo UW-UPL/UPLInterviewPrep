@@ -5,12 +5,14 @@ Questions and solutions for the interview prep from 1/28/16
 The questions can be found in the file `questions.pdf`.
 
 ## Solutions
+Solutions to problems can be found in the corresponding `q*` directory for the problem number.
 
-Note: Solutions to problems are totally accepted! Make a PR!
-Double Note: Most of the technical problems have solutions readily available online. If you want practice, try writing one up!
+__Note__: Your solutions are totally accepted! Make a PR!
 
+<!--
 | Problem Name/Number  | File Name | Author |
 | ------------- | ------------- | ------------- |
 | Abbreviation II  | `FindAllAbbreviations.hs`  | Leo Rudberg (LOZORD) |
 | Quine Time  | `look_and_say.py`  | Leo Rudberg (LOZORD) |
 | Pair-y Time | `pairy-time.py` | Leo Rudberg (LOZORD)
+-->
