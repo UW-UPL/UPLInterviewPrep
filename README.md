@@ -7,6 +7,7 @@ The questions can be found in the file `questions.pdf`.
 ## Solutions
 
 Note: Solutions to problems are totally accepted! Make a PR!
+Double Note: Most of the technical problems have solutions readily available online. If you want practice, try writing one up!
 
 | Problem Name/Number  | File Name | Author |
 | ------------- | ------------- | ------------- |
