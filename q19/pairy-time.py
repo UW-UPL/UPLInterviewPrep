@@ -13,7 +13,7 @@ def pairy_time(k, A):
     
     # I initially used an array, but the `k - v` trick causes
     # a bounds error. You could also argue that a dictionary
-    # is more efficient/scalable for large but "spare" input lists.
+    # is more efficient/scalable for large but "sparse" input lists.
     
     for i, v in enumerate(A_mod):
         if dct.get(k - v) is not None:
