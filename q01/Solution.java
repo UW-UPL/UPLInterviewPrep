@@ -6,7 +6,7 @@ public class Solution {
             int med = first + (last - first) / 2;
             if (nums[med] < k) {
                 first = med + 1;
-            } else if (nums[med] > k){
+            } else if (nums[med] > k) {
                 last = med - 1;
             } else {
                 last = med;
