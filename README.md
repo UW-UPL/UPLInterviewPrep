@@ -2,7 +2,7 @@
 Questions and solutions for the interview prep from 1/28/16
 
 ## Questions
-The questions can be found in the file `questions.pdf`.
+The questions can be found in the file [questions.pdf](questions.pdf).
 
 ## Solutions
 Solutions to problems can be found in the corresponding `q*` directory for the problem number.
