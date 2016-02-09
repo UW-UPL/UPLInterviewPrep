@@ -2,16 +2,17 @@ public class Solution {
     public static int firstOccurrence(int[] nums, int k) {
         int first = 0;
         int last = nums.length - 1;
-        while (first < last - 1) {
+        while (first < last) {
             int med = first + (last - first) / 2;
             if (nums[med] < k) {
-                first = med;
+                first = med + 1;
+            } else if (nums[med] > k){
+                last = med - 1;
             } else {
                 last = med;
             }
         }
         if (nums[first] == k) return first;
-        else if (nums[last] == k) return last;
         else return -1;
     }
 
