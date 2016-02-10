@@ -19,6 +19,9 @@ public class Solution {
                 // to sum elements i through j, look up the sum
                 // for elements i through j-1 and add element j
                 int sum = sums[i][j-1] + sums[j][j];
+                // if you know that i will always be less than j,
+                // you only have to fill out one diagonal half of
+                // the table
                 sums[i][j] = sum;
             }
         }
@@ -56,7 +59,6 @@ public class Solution {
             for (int i = 0; i < nums.length - diff; i++) {
                 int j = i + diff;
                 opts[i][j] = sums[i][j] - Math.min(opts[i+1][j], opts[i][j-1]);
-                
             }
         }
         // the answer is the value stored in opt[0][nums.length - 1]
