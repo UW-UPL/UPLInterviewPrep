@@ -28,12 +28,14 @@ static int isAbbr(char* name, char* abbr) {
 			abbr_pos++;
 		}
 	}
+	if (name_pos > name_len) return 0;
 	if(abbr[abbr_pos] == name[name_pos] && abbr[abbr_pos] == 0)
 		return 1;
 	return 0;
 }
 int main(int argc, char** argv) {
 	printf("1: %s\n", isAbbr("LOCALIZATION", "L10N") ? "TRUE" : "FALSE");
+	printf("1: %s\n", isAbbr("LOCALIZATION", "6Z4N") ? "TRUE" : "FALSE");
 	printf("2: %s\n", isAbbr("LOCALIZATION", "L9N") ? "TRUE" : "FALSE");
 	printf("3: %s\n", isAbbr("LOCALIZATION", "L10Q") ? "TRUE" : "FALSE");
 	return 0;
