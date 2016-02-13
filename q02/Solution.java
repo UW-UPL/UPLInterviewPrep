@@ -21,7 +21,7 @@ public class Solution {
         }
         return namePos == name.length() && abbrPos == abbr.length();
     }
-    
+
     public static void main(String[] args) {
         System.out.println(isAbbr("LOCALIZATION", "L10N"));
         System.out.println(isAbbr("LOCALIZATION", "6Z4N"));
