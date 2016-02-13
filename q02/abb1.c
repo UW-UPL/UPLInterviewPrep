@@ -28,6 +28,7 @@ static int isAbbr(char* name, char* abbr) {
 			abbr_pos++;
 		}
 	}
+	if (name_pos > name_len) return 0;
 	if(abbr[abbr_pos] == name[name_pos] && abbr[abbr_pos] == 0)
 		return 1;
 	return 0;
