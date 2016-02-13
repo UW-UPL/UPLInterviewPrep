@@ -35,6 +35,7 @@ static int isAbbr(char* name, char* abbr) {
 }
 int main(int argc, char** argv) {
 	printf("1: %s\n", isAbbr("LOCALIZATION", "L10N") ? "TRUE" : "FALSE");
+	printf("1: %s\n", isAbbr("LOCALIZATION", "6Z4N") ? "TRUE" : "FALSE");
 	printf("2: %s\n", isAbbr("LOCALIZATION", "L9N") ? "TRUE" : "FALSE");
 	printf("3: %s\n", isAbbr("LOCALIZATION", "L10Q") ? "TRUE" : "FALSE");
 	return 0;

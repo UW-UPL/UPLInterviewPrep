@@ -24,6 +24,7 @@ public class Solution {
     
     public static void main(String[] args) {
         System.out.println(isAbbr("LOCALIZATION", "L10N"));
+        System.out.println(isAbbr("LOCALIZATION", "6Z4N"));
         System.out.println(isAbbr("LOCALIZATION", "L9N"));
         System.out.println(isAbbr("LOCALIZATION", "L10Q"));
     }
