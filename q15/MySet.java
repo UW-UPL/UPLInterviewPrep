@@ -2,32 +2,34 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Comparator;
 
-public class MySet {
-    public MyNode root;
-
-    public MySet() {
+public class MySet<T> {
+    public MyNode<T> root;
+    public Comparator<T> cmp;
+    public MySet(Comparator<T> myCmp) {
         root = null;
+        cmp = myCmp;
     }
 
-    public void add(int data) {
+    public void add(T data) {
         if (root == null) {
-            root = new MyNode(data);
+            root = new MyNode<>(data);
         } else {
-            root.add(data);
+            root.add(data, cmp);
         }
     }
 
     // The following set operations all return new MySet instances
 
-    public MySet union(MySet otherSet) {
-        MySet newSet = new MySet();
-        Iterator<Integer> myIt = iterator();
+    public MySet union(MySet<T> otherSet) {
+        MySet<T> newSet = new MySet<>(cmp);
+        Iterator<T> myIt = iterator();
         while (myIt.hasNext()) {
             newSet.add(myIt.next());
         }
 
-        Iterator<Integer> otherIt = otherSet.iterator();
+        Iterator<T> otherIt = otherSet.iterator();
         while (otherIt.hasNext()) {
             newSet.add(otherIt.next());
         }
@@ -35,10 +37,10 @@ public class MySet {
         return newSet;
     }
 
-    public MySet intersection(MySet otherSet) {
-        MySet newSet = new MySet();
-        Iterator<Integer> myIt = iterator();
-        Iterator<Integer> otherIt = otherSet.iterator();
+    public MySet intersection(MySet<T> otherSet) {
+        MySet<T> newSet = new MySet<>(cmp);
+        Iterator<T> myIt = iterator();
+        Iterator<T> otherIt = otherSet.iterator();
 
         boolean myEmpty = !myIt.hasNext();
         boolean otherEmpty = !otherIt.hasNext();
@@ -47,19 +49,19 @@ public class MySet {
             return newSet;
         }
 
-        int myVal = myIt.next();
-        int otherVal = otherIt.next();
+        T myVal = myIt.next();
+        T otherVal = otherIt.next();
         while (myIt.hasNext() && otherIt.hasNext()) {
             if (myVal == otherVal) {
                 newSet.add(myVal);
                 myVal = myIt.next();
                 otherVal = otherIt.next();
-            } else if (myVal < otherVal) {
-                while (myVal < otherVal) {
+            } else if (cmp.compare(myVal, otherVal) < 0) {
+                while (cmp.compare(myVal, otherVal) < 0) {
                     myVal = myIt.next();
                 }
             } else {
-                while (otherVal < myVal) {
+                while (cmp.compare(myVal, otherVal) > 0) {
                     otherVal = otherIt.next();
                 }
             }
@@ -72,10 +74,10 @@ public class MySet {
         return newSet;
     }
 
-    public MySet difference(MySet otherSet) {
-        MySet newSet = new MySet();
-        Iterator<Integer> myIt = iterator();
-        Iterator<Integer> otherIt = otherSet.iterator();
+    public MySet difference(MySet<T> otherSet) {
+        MySet<T> newSet = new MySet<>(cmp);
+        Iterator<T> myIt = iterator();
+        Iterator<T> otherIt = otherSet.iterator();
 
         boolean myEmpty = !myIt.hasNext();
         boolean otherEmpty = !otherIt.hasNext();
@@ -89,19 +91,19 @@ public class MySet {
             return newSet;
         }
 
-        Integer myVal = myIt.next();
-        Integer otherVal = otherIt.next();
+        T myVal = myIt.next();
+        T otherVal = otherIt.next();
         while (myIt.hasNext() && otherIt.hasNext()) {
             if (myVal.equals(otherVal)) {
                 myVal = myIt.next();
                 otherVal = otherIt.next();
-            } else if (myVal < otherVal) {
-                while (myVal < otherVal) {
+            } else if (cmp.compare(myVal, otherVal) < 0) {
+                while (cmp.compare(myVal, otherVal) < 0) {
                     newSet.add(myVal);
                     myVal = myIt.next();
                 }
             } else {
-                while (otherVal < myVal) {
+                while (cmp.compare(myVal, otherVal) > 0) {
                     otherVal = otherIt.next();
                 }
             }
@@ -121,55 +123,56 @@ public class MySet {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{ ");
-        Iterator<Integer> it = iterator();
+        Iterator<T> it = iterator();
         while (it.hasNext()) {
-            sb.append(it.next().intValue());
+            sb.append(it.next().toString());
             sb.append(" ");
         }
         sb.append("}");
         return sb.toString();
     }
 
-    public Iterator<Integer> iterator() {
-        return new MyIterator(root);
+    public Iterator<T> iterator() {
+        return new MyIterator<>(root);
     }
 
     // private classes
 
-    private class MyNode {
-        public int data;
-        public MyNode left;
-        public MyNode right;
+    private class MyNode<T1> {
+        public T1 data;
+        public MyNode<T1> left;
+        public MyNode<T1> right;
 
-        public MyNode(int myData) {
+        public MyNode(T1 myData) {
             data = myData;
             left = null;
             right = null;
         }
 
-        public void add(int newData) {
-            if (newData < data) {
+        public void add(T1 newData, Comparator<T1> cmp) {
+            int c = cmp.compare(data, newData);
+            if (c > 0) {
                 if (left == null) {
-                    left = new MyNode(newData);
+                    left = new MyNode<>(newData);
                 } else {
-                    left.add(newData);
+                    left.add(newData, cmp);
                 }
-            } else if (newData > data) {
+            } else if (c < 0) {
                 if (right == null) {
-                    right = new MyNode(newData);
+                    right = new MyNode<>(newData);
                 } else {
-                    right.add(newData);
+                    right.add(newData, cmp);
                 }
             }
         }
     }
 
     // define an in-order iterator over the set
-    private class MyIterator implements Iterator<Integer> {
-        private List<MyNode> stack;
-        private MyNode current;
+    private class MyIterator<T2> implements Iterator<T2> {
+        private List<MyNode<T2>> stack;
+        private MyNode<T2> current;
 
-        private MyIterator(MyNode root) {
+        private MyIterator(MyNode<T2> root) {
             stack = new ArrayList<>();
             if (root != null) {
                 stack.add(root);
@@ -185,7 +188,7 @@ public class MySet {
             return stack.size() > 0 || current != null;
         }
 
-        public Integer next() {
+        public T2 next() {
             while (stack.size() > 0 || current != null) {
                 if (current != null) {
                     stack.add(0, current);
@@ -193,7 +196,7 @@ public class MySet {
                 } else {
                     current = stack.get(0);
                     stack.remove(0);
-                    MyNode retVal = current;
+                    MyNode<T2> retVal = current;
                     current = current.right;
                     return retVal.data;
                 }
@@ -202,14 +205,27 @@ public class MySet {
         }
     }
 
-    public static void main(String[] args) {
-        MySet a = new MySet();
+    private static class IntComparator implements Comparator<Integer> {
+        public int compare(Integer i1, Integer i2) {
+            return i1.compareTo(i2);
+        }
+    }
+
+    private static class StringComparator implements Comparator<String> {
+        public int compare(String s1, String s2) {
+            return s1.compareTo(s2);
+        }
+    }
+
+    public static void testIntSet() {
+        IntComparator cmp = new IntComparator();
+        MySet<Integer> a = new MySet<>(cmp);
         a.add(1);
         a.add(2);
         a.add(3);
         System.out.println("Set A: " + a.toString());
 
-        MySet b = new MySet();
+        MySet<Integer> b = new MySet<>(cmp);
         b.add(2);
         b.add(3);
         System.out.println("Set B: " + b.toString());
@@ -220,5 +236,34 @@ public class MySet {
 
         System.out.println("Difference (A - B): " + a.difference(b).toString());
         System.out.println("Difference (B - A): " + b.difference(a).toString());
+    }
+
+    public static void testStringSet() {
+        StringComparator cmp = new StringComparator();
+        MySet<String> a = new MySet<>(cmp);
+        a.add("One");
+        a.add("Two");
+        a.add("Three");
+        System.out.println("Set A: " + a.toString());
+
+        MySet<String> b = new MySet<>(cmp);
+        b.add("Two");
+        b.add("Three");
+        System.out.println("Set B: " + b.toString());
+
+        System.out.println("Union: " + a.union(b).toString());
+
+        System.out.println("Intersection: " + a.intersection(b).toString());
+
+        System.out.println("Difference (A - B): " + a.difference(b).toString());
+        System.out.println("Difference (B - A): " + b.difference(a).toString());
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Int sets:\n");
+        testIntSet();
+        System.out.println("\n\nString sets:\n");
+        testStringSet();
+
     }
 }
