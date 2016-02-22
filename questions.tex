@@ -1,0 +1,284 @@
+\documentclass[12pt,runningheads]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,hyperref,array,xcolor,multicol,verbatim,mathpazo}
+\usepackage[normalem]{ulem}
+\usepackage[pdftex]{graphicx}
+\begin{document}
+
+%%%% In most cases you won't need to edit anything above this line %%%%
+
+\title{UPL Interview Prep}
+\author{Riccardo Mutschlechner, Leo Rudberg, Nick Heindl}
+\maketitle
+
+Complete the following questions as best as you can. Write out the answer (on paper) without looking anything up. A nice tip is to try to use pseudocode first to hammer out your algorithm, and then proceed to program it up in the language of your choice. Interviews often ask you to code on paper or a whiteboard, so it is essential to practice this! You should spend at most 20 minutes on each the coding/algorithmic questions.
+
+These are some common problems we've encountered interviewing with various companies (Microsoft, Google, Dropbox, Yahoo, Riot Games, Amazon, and Uber to name a few), as well as in Cracking the Coding Interview.
+
+The questions here cover a variety of topics, but are presented in no specific order.
+
+If any part of any question seems vague or under-described, please ask!
+
+\newpage
+
+\section{Liftoff}
+Write a function that finds the first occurrence (index) of an integer $k$ in a sorted list of integers $A$, with possible duplicates.
+
+\begin{comment}
+This can be done most efficiently using two binary searches:
+1) First find any instance of k using binary search
+2) Then use a second binary search to find the _first instance_ of k
+\end{comment}
+\newpage
+
+\section{Abbreviation I}
+Write a function that takes two string arguments and returns a boolean (true/false). The function should return true if and only if the second string is a valid abbreviation of the first.
+
+An abbreviation is defined as a substring of an original string where any missing characters are replaced a number signifying however many are missing. You can assume we will only deal with uppercase characters (case doesn't matter).
+
+For example, "LOCALIZATION" is often abbreviated as "L10N" (disregarding case). Following the same rule, we could also have "LOCALIZATIO1", "L11", "11N", "LOCALIZATION", "L1C1LIZATION", and "12" as valid abbreviations.\\
+
+For example:
+
+\begin{verbatim}
+isAbbr("LOCALIZATION", "L10N") // True
+isAbbr("LOCALIZATION", "L9N") // False
+isAbbr("LOCALIZATION", "L10Q") // False
+\end{verbatim}
+
+\begin{comment}
+def isAbbr(orig, test):
+    i = 0
+    while i != len(orig):
+        if orig[i] == test[i]: # TODO: fix indexing error
+            i += 1
+        elif test[i].isdigit():
+            # do stuff
+            num_start = i
+            num_end = i + 1
+            while num_end < len(test) and test[num_end].isdigit():
+                num_end += 1
+            numeric_slice = test[num_start:num_end]
+            num = int(numeric_slice)
+            i += num
+        else:
+            return False
+    return True
+
+def takeWhile(pred, lst):
+    res = []
+    for elem in lst:
+        if pred(elem):
+            res.append(elem)
+        else:
+            break
+    return res
+
+def isAbbrRec(orig, test):
+    if not orig and not test:
+        return True
+    elif (not orig) != (not test):
+        return False
+    elif orig[0] == test[0]:
+        return isAbbrRec(orig[1:], test[1:])
+    elif orig[0] != test[0] and test[0].isdigit():
+        numeric_prefix = takeWhile(lambda c: c.isdigit(), test)
+        num = int(''.join(numeric_prefix))
+        return isAbbrRec(orig[num:], test[1:])
+    else:
+        return False
+\end{comment}
+
+\newpage
+
+\section{Abbreviation II}
+
+Using the same rule from Abbreviation I, write a function that produces a list of all valid abbreviations of string. (Hint: there are a lot.)\\
+
+For example:
+
+\begin{verbatim}
+allAbbrs("DOG") = ["DOG", "D2", ...] // order not important
+\end{verbatim}
+
+\begin{comment}
+This can be reduced to a power-set problem.
+
+Theoretically, generate all n-length bit-strings, where n is the length of the argument string.
+For each bit at i in each string, if a bit i is 0, then, use the ith letter of the string there.
+Otherwise, it bit i is 1, then it is number (adjacent 1's are added together).
+
+Realistically, this involves a divide-and-conquer approach (trim each letter) and a lot of int <=> str conversions.
+
+Haskell solution:
+https://gist.github.com/LOZORD/eb7792aa6182624a28a2
+\end{comment}
+
+\newpage
+
+\section{The Grandfather of All Interview Questions}
+
+Given a tree of strings, write a function that determines if any grandparent has any two grandchildren that have the same value. As part of your solution, please write an accessor function for a node's grandchildren.
+\begin{comment}
+Interviewee should ask about how tree is implemented (BST, binary, etc.).
+Depending upon implementation, this question should be trivial.
+
+Basically:
+
+gchildren = node.getGrandchildren() # implemented by interviewee
+uniqGChildren = gchildren.uniqBy {node a, node b: a.data == b.data} # remove duplicates
+return gchildren != uniqGChidren # we removed at least one duplicate
+\end{comment}
+\newpage
+
+\section{Design I}
+
+How would you implement autocomplete for a messaging app on a mobile device?
+\begin{comment}
+Although a map or a set is good starting point, the best implementation is a trie (not tree).
+This is memory efficient, and also works well with user's typings.
+\end{comment}
+\newpage
+
+\section{Design II}
+
+How would you architect an Instagram-like offering?
+
+\begin{comment}
+Open to interpretation of correctness ;)
+Should mention front-end and back-end decisions.
+How would data be managed (internationally)? Example: sharding
+\end{comment}
+
+\newpage
+
+\section{Design III}
+
+If you could change a typical programming workflow, how would you do it? In other words, how would you design a new programming environment?
+
+%%% hello Interactive Dance Environment :^)
+
+\newpage
+
+\section{Let's Play a Game}
+In the two-player game “Two Ends”, $n$ cards are laid out in a row. On each card, face up, is written
+a positive integer. Players take turns removing a card from either end of the row and placing the card
+in their pile, until all cards are removed. The score of a player is the sum of the integers of the cards
+in his/her pile.
+Give an efficient algorithm that takes $A$, the sequence of n positive integers, and determines the score of
+each player when both play optimally.
+
+(Taken from Prof Dieter van Melkebeek's CS 577 final exam review)
+\begin{comment}
+This problem requires a dynamic programming solution.
+\end{comment}
+\newpage
+
+\section{Personality I}
+
+What project are you most proud of? Was it a success?
+
+\newpage
+
+\section{Personality II}
+
+What's the last math class you've taken? Could you apply it to software engineering? Why/why not?
+
+\newpage
+
+\section{Personality III}
+
+What's the hardest problem you've ever worked on?
+
+\newpage
+
+\section{Personality IV}
+
+What would you do if you didn't know how to do something on the job?
+
+\newpage
+
+\section{Personality V}
+
+What type of sense of humor do you have? What is funny to you?
+
+\newpage
+
+\section{Personality VI}
+
+What was the most world-changing invention in the last 100 years? 1000 years? What will the most world changing invention be in the next 100 years?
+
+\newpage
+
+\section{OOP is OP}
+
+Write a Set class that has the union, intersection, and difference operations. (Do not use a built-in Set class in your answer.)
+
+\newpage
+
+\section{Meta-testing}
+
+Write an overview of assertions you would run to test your Set implementation. You don't have to write code for this part; just the method name, the input, and the expected output of each test is fine.
+\begin{comment}
+Each method should be tested with:
+Identical sets, different sets, empty sets, null and garbage arguments, etc.
+\end{comment}
+
+\newpage
+
+\section{Ask Me Later}
+What is a \textbf{promise} in the context of programming? Can you explain their use in five or less sentences? Can you give an example of a promise in use?
+
+(The purpose of this question is to test your knowledge of a specific concept. Often, interviewers will ask you about topics you may never have heard of, like promises, which show up a lot front-end development as a way of handling data exchange. Please know that is OK to say "I don't know" in response to an interviewer's questions.) 
+\newpage
+
+\section{Quine Time}
+Write a function that gives the $n$th element in the following sequence:
+
+The sequence begins with the element "1". The next item in the sequence is how that element is read: we see one "1", so the next element is "11". The element after that is "21" since we see two ones in the previous step. After that, we have "1211". The sequence continues following that pattern.
+
+(Bonus question: do we ever see a "4" in a step? Why/why not?) (Double bonus: the mathematician who identified this sequence also created one of the most famous computer simulations of all time. What is his name?)
+
+%%%
+\begin{comment}
+def read(num):
+    s = str(num)
+    l = len(s)
+    res = ''
+    rpt = 0
+    chr = s[0]
+    i = 0
+    
+    for i in range(l):
+        if s[i] == chr:
+            rpt += 1
+        else:
+            res += str(rpt) + chr
+            rpt = 1
+            chr = s[i]
+    
+    if rpt >= 1:
+        res += str(rpt) + chr
+    
+    return int(res)
+    
+num = 1
+ctr = 1
+lim = 15
+
+while ctr != lim:
+    print(num)
+    num = read(num)
+    ctr += 1
+
+\end{comment}
+%%%
+
+\newpage
+
+\section{Pair-y Time}
+Given an integer $k$ and a list of integers $A$, find if there exists a pair $(i, j): A[i] + A[j] = nk$, for some $n \in Z$.
+\begin{comment}
+First mod everything by k. Then use a hash or array to find pairs that sum to "0" = k.
+\end{comment}
+\end{document}
