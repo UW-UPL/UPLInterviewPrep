@@ -9,6 +9,10 @@ Solutions to problems can be found in the corresponding `q*` directory for the p
 
 __Note__: Your solutions are totally accepted! Make a PR!
 
+
+## Building your own suite of questions
+Simply putting the .tex file into an http://overleaf.com project and then saving as a PDF works well. Otherwise, install your favorite LaTeX distribution and do the same thing locally. Sometimes, in Unix, the `pdflatex` command is available. You can run `pdflatex questions.tex` to generate the PDF as well. 
+
 <!--
 | Problem Name/Number  | File Name | Author |
 | ------------- | ------------- | ------------- |
