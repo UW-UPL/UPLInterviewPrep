@@ -1,16 +1,24 @@
-# Interview Prep - January 2016
-Questions and solutions for the interview prep from 1/28/16
+# UPL Interview Prep
 
-## Questions
-The questions can be found in the file [questions.pdf](questions.pdf).
+Collection of resources brought to you by the [UPL](http://upl.cs.wisc.edu) to help prepare you for interviews!
 
-## Solutions
-Solutions to problems can be found in the corresponding `q*` directory for the problem number.
+We **encourage you** to do these problems and submit pull requests for good answers!
 
-__Note__: Your solutions are totally accepted! Make a PR!
+Other talks and events from the UPL are [here](https://github.com/UW-UPL/Talks).
+
+
+## Events
+
+We've done numerous interview prep events with the UPL. You can find those questions and solutions here:
+
+* [Spring 2016](Spring2016/)
+* [Fall 2015](Fall2015/)
 
 
 ## Building your own suite of questions
+
+If you wish to build your own suite of questions, you can follow these instructions using a .tex file from one of the question repositories.
+
 Simply putting the .tex file into an http://overleaf.com project and then saving as a PDF works well. Otherwise, install your favorite LaTeX distribution and do the same thing locally. Sometimes, in Unix, the `pdflatex` command is available. You can run `pdflatex questions.tex` to generate the PDF as well. 
 
 <!--
