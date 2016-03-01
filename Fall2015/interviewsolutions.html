@@ -1,0 +1,101 @@
+<html>
+Solutions (Pseudocode):
+<br/>1. 
+<code>
+void FizzBuzz(int n){ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;   for(int i = 0; i < n; i++){ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(i % 3 == 0) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print "Fizz" <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(i % 5 == 0) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print "Buzz" <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print "\n" <br>
+} <br>
+</code>
+<br/>
+
+2: Returns true when n is a power of two
+<br/>
+
+3: C++ Solution 
+<code>
+int HasCycle(Node* head)<br/>
+{<br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;Node *n1 = head;<br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;Node *n2 = head;<br/>
+   
+   //make sure neither are null, or we don't have a cycle<br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;while(n1 && n2){<br/>
+       
+       //2 iterators for the list<br/>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n1 = n1->next;<br/>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n2 = n2->next;<br/>
+       
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!n2)<br/>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br/>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<br/>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n2 = n2->next; //n2 goes "twice as fast" as n1<br/>
+       
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//this is how we know there is a cycle<br/>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n1 == n2)<br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1;<br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;} <br/>
+    
+    &nbsp;&nbsp;&nbsp;&nbsp;return 0;<br/>
+}
+</code>
+<br/>
+<br/>
+4: C++ Solution: <br/>
+<code>
+<br/>
+void Inorder(node *root) { <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;if(!root) { return; } <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Inorder(root->left); <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;std::cout << root->data << " "; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Inorder(root->right); <br/>
+} <br/>
+</code>
+<br/>
+<br/>
+5: Java Solution: <br/>
+<code>
+Node MergeLists(Node list1, Node list2) { <br/>
+  &nbsp;&nbsp;if (list1 == null) return list2; <br/>
+  &nbsp;&nbsp;if (list2 == null) return list1; <br/>
+
+  &nbsp;&nbsp;if (list1.data < list2.data) { <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;list1.next = MergeLists(list1.next, list2); <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;return list1; <br/>
+  &nbsp;&nbsp;} else { <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;list2.next = MergeLists(list2.next, list1);<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;return list2;<br/>
+  &nbsp;&nbsp;}
+}
+</code>
+<br/>
+<br/>
+6: C++ Solution </br>
+<code>
+void ReversePrint(Node *head)<br/>
+{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;if(head->next)<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ReversePrint(head->next);<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;std::cout << head->data << std::endl;<br/>
+}
+</code>
+<br/>
+<br/>
+
+7: Python solution
+<code>
+def find_intersection(values): </br>
+&nbsp;&nbsp;&nbsp;&nbsp;all_uniques = [] </br>
+&nbsp;&nbsp;&nbsp;&nbsp;for value in values: </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all_uniques.append(set([l for l in value]))</br>
+&nbsp;&nbsp;&nbsp;&nbsp;return len(reduce(lambda x, y: x & y all_uniques))</br>
+</code>
+<br/>
+<br/>
+8: Solution TBD
+
+</html>
