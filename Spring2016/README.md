@@ -7,14 +7,23 @@ Feel free to use these questions as practice, and **send us a pull request** if 
 
 ## Questions
 
-The questions can be found in the file [questions.pdf](questions.pdf).
+The questions can be found here: [.pdf](questions/questions.pdf) and [.tex](questions/questions.tex)
 
 
 ## Solutions
 
-Solutions to problems can be found in the corresponding `q*` directory for the problem number.
+All solutions can be found in the [questions](questions/) folder.
 
-__Note__: Your solutions are totally accepted! Make a PR!
+Individual Solutions:
+
+* [Question 1](questions/q01/)
+* [Question 2](questions/q02/)
+* [Question 3](questions/q03/)
+* [Question 4](questions/q04/)
+* [Question 8](questions/q08/)
+* [Question 15](questions/q15/)
+* [Question 18](questions/q18/)
+* [Question 19](questions/q19/)
 
 
 ## Building your own suite of questions
