@@ -2,7 +2,7 @@
 
 Questions and solutions for the interview prep from 10/1/15.
 
-Feel free to use these questions as practice, and send us a pull request if you have a solution!
+Feel free to use these questions as practice, and **send us a pull request** if you have a solution!
 
 
 ## Questions
