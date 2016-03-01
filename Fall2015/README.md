@@ -25,3 +25,6 @@ HackerRank environments for problems:
 6. https://www.hackerrank.com/challenges/print-the-elements-of-a-linked-list-in-reverse
 7. https://www.hackerrank.com/challenges/gem-stones
 8. No hackerrank solution.
+
+
+Note: This was turned into a repository posthumously. Original may or may not still be [here](http://pages.cs.wisc.edu/~riccardo/interviewprep.html)
