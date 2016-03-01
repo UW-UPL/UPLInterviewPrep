@@ -1,5 +1,6 @@
 Solutions (Pseudocode): 
-'''1. void FizzBuzz(int n){ 
+```
+1. void FizzBuzz(int n){ 
      for(int i = 0; i < n; i++){ 
      if(i % 3 == 0) 
        print "Fizz" 
@@ -66,4 +67,5 @@ void ReversePrint(Node *head)
     return len(reduce(lambda x, y: x & y all_uniques))
 
 
-8: Solution TBD'''
+8: Solution TBD
+```
