@@ -1,10 +1,17 @@
-# Interview Prep - January 2016
+# Interview Prep - Spring 2016
+
 Questions and solutions for the interview prep from 1/28/16
 
+Feel free to use these questions as practice, and **send us a pull request** if you have a solution!
+
+
 ## Questions
+
 The questions can be found in the file [questions.pdf](questions.pdf).
 
+
 ## Solutions
+
 Solutions to problems can be found in the corresponding `q*` directory for the problem number.
 
 __Note__: Your solutions are totally accepted! Make a PR!
