@@ -50,8 +50,8 @@ func (node *Node) anyGrandchildrenEqual() bool {
 		}
 
 		key := gchild.value
-		_,
-			hasKey := dict[key]
+		
+		_, hasKey := dict[key]
 		if hasKey {
 			return true
 		} else {
