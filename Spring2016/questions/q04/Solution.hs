@@ -54,7 +54,7 @@ prop_childrensChildrenAreGrandchildren t t' =
   all id $ map (\n -> elem n gc) (children t ++ children t')
   where gc = grandChildren (Node t undefined t')
 
-prop_anyGrandchildrenMeansAnyRoot :: (Ord a) => Tree a -> Bool
+prop_anyGrandchildrenMeansAnyRoot :: Ord a => Tree a -> Bool
 prop_anyGrandchildrenMeansAnyRoot t =
   gc == (anyGrandchildrenEqual (Node t undefined Leaf)) && gc == (anyGrandchildrenEqual (Node Leaf undefined t))
   where gc = anyGrandchildrenEqual t
