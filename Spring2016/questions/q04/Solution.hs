@@ -3,6 +3,8 @@ module Main where
 import Control.Monad
 import Data.List
 import qualified Data.Set as S
+
+import Test.Hspec
 import Test.QuickCheck
 
 data Tree a = Leaf | Node (Tree a) a (Tree a) deriving (Eq, Show)
@@ -52,6 +54,11 @@ prop_childrensChildrenAreGrandchildren t t' =
   all id $ map (\n -> elem n gc) (children t ++ children t')
   where gc = grandChildren (Node t undefined t')
 
+prop_anyGrandchildrenMeansAnyRoot :: (Ord a) => Tree a -> Bool
+prop_anyGrandchildrenMeansAnyRoot t =
+  gc == (anyGrandchildrenEqual (Node t undefined Leaf)) && gc == (anyGrandchildrenEqual (Node Leaf undefined t))
+  where gc = anyGrandchildrenEqual t
+
 prop_noneEqualInUniq :: Ord a => [a] -> Bool
 prop_noneEqualInUniq l = not $ anyEqual (S.toList (S.fromList l))
 
@@ -69,11 +76,39 @@ prop_allEqualAnyOrder l = all (\l' -> anyEqual l' == ans) (permutations front)
 type PropStringTree = Tree String -> Bool
 type PropStringList = [String] -> Bool
 
+exampleTree1 :: Tree Char
+exampleTree1 =
+  Node
+  (Node (Node Leaf 'c' (Node Leaf 'e' Leaf)) 'b' (Node Leaf 'd' Leaf))
+  'a'
+  (Node Leaf 'f' (Node (Node Leaf 'h' Leaf) 'g' Leaf))
+
+exampleTree2 :: Tree Char
+exampleTree2 =
+  Node
+  (Node (Node (Node Leaf 'd' Leaf) 'c' Leaf) 'b' (Node Leaf 'h' (Node Leaf 'd' Leaf)))
+  'a'
+  (Node (Node (Node Leaf 'g' Leaf) 'f' (Node Leaf 'd' Leaf)) 'a' Leaf)
+
 main :: IO ()
-main = do
-  quickCheck (prop_upToTwoChildren :: PropStringTree)
-  quickCheck (prop_upToFourGrandchildren :: PropStringTree)
-  quickCheck (prop_childrensChildrenAreGrandchildren :: Tree String -> Tree String -> Bool)
-  quickCheck (prop_noneEqualInUniq :: PropStringList)
-  quickCheck (prop_selfConcatEqual :: PropStringList)
-  quickCheck (prop_allEqualAnyOrder :: PropStringList)
+main = hspec $ do
+  describe "Binary trees" $ do
+    it "should only have up to 2 children" $ do
+      property $ (prop_upToTwoChildren :: PropStringTree)
+    it "should only have up to 4 grandchildren" $ do
+      property $ (prop_upToFourGrandchildren :: PropStringTree)
+    it "should include all children's children as grandchildren" $ do
+      property $ (prop_childrensChildrenAreGrandchildren :: Tree String -> Tree String -> Bool)
+  describe "anyGrandchildrenEqual" $ do
+    it "should check subtrees" $ do
+      property $ (prop_anyGrandchildrenMeansAnyRoot :: PropStringTree)
+    it "should get the correct answers" $ do
+      anyGrandchildrenEqual exampleTree1 `shouldBe` False
+      anyGrandchildrenEqual exampleTree2 `shouldBe` True
+  describe "anyEqual" $ do
+    it "should be False for a list with no duplicates" $ do
+      property $ (prop_noneEqualInUniq :: PropStringList)
+    it "should be True for any list concatenated with itself" $ do
+      property $ (prop_selfConcatEqual :: PropStringList)
+    it "should always give the same answer for all orderings of a list" $ do
+      property $ (prop_allEqualAnyOrder :: PropStringList)
